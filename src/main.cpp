@@ -56,7 +56,7 @@ int wellEMPTY = 0;
 
 const long ONESECONDINTERVAL = 1000;   // one second counter
 const long TWOSECONDINTERVAL = 3000;   // two second counter
-const long DEFAULTINTERVAL   = 5000;   // two second counter
+const long DEFAULTINTERVAL   = 10000;   // Default Interval
 
 long previousMillis = 0;        // will store last time LED was updated
 
@@ -234,6 +234,6 @@ void loop() {
     LoRa.receive();
   }
 
-  delay(1000);
+  delay(ONESECONDINTERVAL);
 
 }
