@@ -55,8 +55,8 @@ int wellFULL  = 0;
 int wellEMPTY = 0;
 
 const long ONESECONDINTERVAL = 1000;   // one second counter
-const long TWOSECONDINTERVAL = 3000;   // two second counter
-const long DEFAULTINTERVAL   = 10000;   // Default Interval
+const long TWOSECONDINTERVAL = 2000;   // two second counter
+const long DEFAULTINTERVAL   = 15000;   // Default Interval
 
 long previousMillis = 0;        // will store last time LED was updated
 
@@ -168,7 +168,8 @@ void setup() {
   // Setup the LORA board for communications
   Heltec.begin(false /*DisplayEnable Enable*/, true /*LoRa Enable*/, true /*Serial Enable*/, true /*LoRa use PABOOST*/, BAND /*LoRa RF working band*/);
   
-  LoRa.setTxPowerMax(4);
+  LoRa.setTxPowerMax(20);
+  
   
   idleScreen();
 	delay(300);
@@ -181,7 +182,10 @@ void setup() {
 
 void send(String msg, String debugMsg)
 {
+    //LoRa.setTxPower(20, PA_OUTPUT_PA_BOOST_PIN);
+    //LoRa.setTxPower(5,RF_PACONFIG_PASELECT_PABOOST); 
     LoRa.beginPacket();
+    LoRa.setTxPower(5,RF_PACONFIG_PASELECT_PABOOST); 
     LoRa.print(msg); 
     LoRa.endPacket();
     delay(50);
@@ -217,8 +221,8 @@ void loop() {
   wellEMPTY  = digitalRead(EmptyPin);
   wellFULL  = !digitalRead(FullPin);   
 
-  debugPrintln("Well Empty = " + String(wellEMPTY));
-  debugPrintln("Well Full  = " + String(wellFULL));
+  debugPrintln("Well Empty = " + String(wellEMPTY) + "  Full  = " + String(wellFULL));
+  //debugPrintln("Well Full  = " + String(wellFULL));
   
 
   if(long(currentMillis - previousMillis) > DEFAULTINTERVAL) {
@@ -234,6 +238,6 @@ void loop() {
     LoRa.receive();
   }
 
-  delay(ONESECONDINTERVAL);
+  delay(TWOSECONDINTERVAL);
 
 }
