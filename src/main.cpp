@@ -185,7 +185,7 @@ void send(String msg, String debugMsg)
     //LoRa.setTxPower(20, PA_OUTPUT_PA_BOOST_PIN);
     //LoRa.setTxPower(5,RF_PACONFIG_PASELECT_PABOOST); 
     LoRa.beginPacket();
-    LoRa.setTxPower(5,RF_PACONFIG_PASELECT_PABOOST); 
+    LoRa.setTxPower(20,RF_PACONFIG_PASELECT_PABOOST); 
     LoRa.print(msg); 
     LoRa.endPacket();
     delay(50);
